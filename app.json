@@ -2,6 +2,7 @@
   "expo": {
     "name": "localweather",
     "slug": "localweather",
+    "owner": "rdball",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rdball.localweather"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "125eff3f-cd1d-4e0a-a004-a9dd1c5e6b8d"
+      }
     }
   }
 }

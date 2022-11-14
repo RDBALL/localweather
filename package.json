@@ -9,13 +9,18 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/ngrok": "^4.1.0",
+    "babel-plugin-dotenv-import": "^3.0.1",
     "expo": "~47.0.3",
+    "expo-location": "~15.0.1",
     "expo-status-bar": "~1.4.2",
+    "ngrok": "^4.3.3",
     "react": "18.1.0",
     "react-native": "0.70.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "react-native-dotenv": "^3.4.2"
   },
   "private": true
 }
