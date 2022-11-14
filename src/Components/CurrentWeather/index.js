@@ -13,10 +13,12 @@ function CurrentWeather({ currentWeather }) {
 
 
   return (
-    <View style={styles.currentWeatherContainer}>
-      <Image style={styles.icon} source={{ uri: iconURL }} />
-      <Text style={styles.temperature}>{temp}</Text>
-      <Text style={styles.description}>{description}</Text>
+    <View style={[styles.currentWeatherContainer, styles.shadowProp]}>
+      <View style={styles.currentWeather}>
+        <Image style={styles.icon} source={{ uri: iconURL }} />
+        <Text style={styles.temperature}>{Math.round(temp)}° f</Text>
+        <Text style={styles.description}>{description}</Text>
+      </View>
     </View>
   )
 }
@@ -24,8 +26,20 @@ function CurrentWeather({ currentWeather }) {
 const styles = StyleSheet.create({
   currentWeatherContainer: {
     flex: 1,
+    height: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  currentWeather: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    backgroundColor: 'rgba(194, 187, 191, 0.15)',
+    borderRadius: 30,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.9,
+    shadowRadius: 2,
   },
   temperature: {
     fontSize: 50,
@@ -37,8 +51,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: 100,
-    height: 100
-  }
+    height: 100,
+  },
+  shadowProp: {
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.9,
+    shadowRadius: 2,
+  },
 });
 
 export default CurrentWeather
