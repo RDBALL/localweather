@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location'
 import { API_KEY, API_URL } from '@env'
-
-// require('@env').config()
+import CurrentWeather from './src/Components/CurrentWeather';
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null)
   const [currentWeather, setCurrentWeather] = useState(null)
-  const [unitMeasurements, setUnitMeasurements] = useState('imperial')
 
   useEffect(() => {
     load()
@@ -25,7 +23,7 @@ export default function App() {
       const location = await Location.getCurrentPositionAsync()
 
       const { latitude, longitude } = location.coords
-      const apiURL = `${API_URL}lat=${latitude}&lon=${longitude}&units=${unitMeasurements}&appid=${API_KEY}`
+      const apiURL = `${API_URL}lat=${latitude}&lon=${longitude}&units=imperial&appid=${API_KEY}`
       const response = await fetch(apiURL)
       const result = await response.json()
 
@@ -34,17 +32,17 @@ export default function App() {
       } else {
         console.log(result)
       }
-      // alert(`Latitude : ${latitude}, Longitude: ${longitude}`)
     } catch (error) {
       setErrorMessage(error.message)
     }
   }
   if (currentWeather) {
-    const { main: { temp } } = currentWeather
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{temp}</Text>
-        <StatusBar style="auto" />
+        <ImageBackground source={require('./assets/bgimg.jpg')} style={{width: '100%', height: '100%'}}>
+        <CurrentWeather currentWeather={currentWeather} />
+        <StatusBar style="light" />
+        </ImageBackground>
       </View>
     )
   } else {
@@ -59,11 +57,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 50,
-  }
 });
