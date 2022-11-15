@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location'
-import { API_KEY, API_URL } from '@env'
+import { API_KEY, CURRENT_WEATHER_API_URL } from '@env'
 import CurrentWeather from './src/Components/CurrentWeather';
+import background from './assets/bgimg.jpg'
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState(null)
@@ -23,11 +24,11 @@ export default function App() {
       const location = await Location.getCurrentPositionAsync()
 
       const { latitude, longitude } = location.coords
-      const apiURL = `${API_URL}lat=${latitude}&lon=${longitude}&units=imperial&appid=${API_KEY}`
-      const response = await fetch(apiURL)
-      const result = await response.json()
+      const currentWeatherAPIURL = `${CURRENT_WEATHER_API_URL}lat=${latitude}&lon=${longitude}&units=imperial&appid=${API_KEY}`
+      const currentWeatherURL = await fetch(currentWeatherAPIURL)
+      const result = await currentWeatherURL.json()
 
-      if (response.ok) {
+      if (currentWeatherURL.ok) {
         setCurrentWeather(result)
       } else {
         console.log(result)
@@ -39,9 +40,9 @@ export default function App() {
   if (currentWeather) {
     return (
       <View style={styles.container}>
-        <ImageBackground source={require('./assets/bgimg.jpg')} style={{width: '100%', height: '100%'}}>
-        <CurrentWeather currentWeather={currentWeather} />
-        <StatusBar style="light" />
+        <ImageBackground source={background} style={{ width: '100%', height: '100%' }}>
+          <CurrentWeather currentWeather={currentWeather} />
+          <StatusBar style="light" />
         </ImageBackground>
       </View>
     )
